@@ -1,5 +1,5 @@
 const output = document.querySelector(".products-grid");
-
+const cquantity = document.querySelector(".js-quantity");
 let items = ""
 products.forEach(product => {
     items += `
@@ -81,6 +81,12 @@ document.querySelectorAll(".add-to-cart")
       quantity : 1
     });
   }
-  console.log(cart);
+
+  let total = 0;
+  cart.forEach((item)=> {
+    total += item.quantity;
+  });
+
+  cquantity.innerHTML = total;
   });
 });
