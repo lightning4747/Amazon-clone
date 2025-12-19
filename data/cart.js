@@ -1,6 +1,6 @@
 // data/cart.js
 
-export const cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -25,4 +25,16 @@ export function addToCart(productID, quantity) {
   }
 
   saveCart();
+}
+
+export function removeproduct(productid) {
+  const newCart = [];
+
+  cart.forEach((item)=> {
+    if(item.ProductId !== productid) {
+      newCart.push(item);
+    }
+  });
+
+  cart = newCart;
 }
