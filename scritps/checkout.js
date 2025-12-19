@@ -1,4 +1,4 @@
-import { cart, removeProduct } from "../data/cart.js";
+import { cart, removeProduct, updateDeliveryOption } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatcurrency } from "./utils/money.js";
 import  dayjs  from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; //default export
@@ -93,7 +93,9 @@ function deliveryoptionsHTML(id,cartItem) {
 
    
       html += `
-        <div class="delivery-option">
+        <div class="delivery-option js-delivery-option"
+        data-product-id="${id}"
+        data-delivery-option-id="${item.id}">
           <input type="radio"
             ${ischecked ? 'checked' : ''}
             class="delivery-option-input"
@@ -130,3 +132,40 @@ let total = 0;
   });
   if(!isNaN(total)) updatecheckout.innerHTML = `item : ${total}`;
   else updatecheckout.innerHTML = `item : 0`
+
+  document.querySelectorAll(".js-delivery-option").forEach((element) => {
+    element.addEventListener('click', () => {
+      const productId = element.dataset.productId;
+      const deliveryOptionId = element.dataset.deliveryOptionId;
+      
+      if (!productId || !deliveryOptionId) {
+        console.error('Missing data attributes:', element.dataset);
+        return;
+      }
+
+      // Check the radio button
+      const radioInput = element.querySelector('.delivery-option-input');
+      if (radioInput) {
+        radioInput.checked = true;
+      }
+
+      updateDeliveryOption(productId, deliveryOptionId);
+      
+      // Find the delivery option to get the new date
+      const deliveryOption = deliveryoptions.find(opt => opt.id === deliveryOptionId);
+      if (deliveryOption) {
+        const today = dayjs();
+        const deliverydate = today.add(deliveryOption.deliverytime, 'days');
+        const dateString = deliverydate.format('dddd, MMMM D');
+        
+        // Update the delivery date in the DOM
+        const container = document.querySelector(`.js-cart-container-${productId}`);
+        if (container) {
+          const deliveryDateElement = container.querySelector('.delivery-date');
+          if (deliveryDateElement) {
+            deliveryDateElement.textContent = `Delivery date: ${dateString}`;
+          }
+        }
+      }
+    });
+  });

@@ -4,22 +4,11 @@
 let rawCart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Migrate old cart format to new format
-export let cart = rawCart.map(item => {
-  // If item has old property names, convert them
-  if (item.ProductId !== undefined) {
-    return {
-      productId: item.ProductId,
-      quantity: item.quantity,
-      deliveryOptionId: item.deliveryoptions || item.deliveryOptionId || '1'
-    };
-  }
-  // If already in new format, return as-is
-  return {
-    productId: item.productId,
-    quantity: item.quantity,
-    deliveryOptionId: item.deliveryOptionId || '1'
-  };
-});
+export let cart = rawCart.map(item => ({
+  productId: item.productId,
+  quantity: item.quantity,
+  deliveryOptionId: item.deliveryOptionId || '1'
+}));
 
 // Save migrated cart back to localStorage if migration occurred
 if (rawCart.length > 0 && rawCart.some(item => item.ProductId !== undefined)) {
@@ -62,5 +51,23 @@ export function removeProduct(productId) {
   });
 
   cart = newCart;
+  saveCart();
+}
+
+export function updateDeliveryOption(productId, deliveryOptionId) {
+  let matchingItem;
+
+  cart.forEach(item => {
+    if (item.productId === productId) {
+      matchingItem = item;
+    }
+  });
+
+  if (!matchingItem) {
+    console.error('Product not found in cart:', productId);
+    return;
+  }
+
+  matchingItem.deliveryOptionId = deliveryOptionId;
   saveCart();
 }
