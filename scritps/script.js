@@ -68,14 +68,14 @@ products.forEach(product => {
 
 output.innerHTML = items;
 
-function updateCartQuantity(productID,quantity) {
-    let total = 0;
-  cart.forEach((item)=> {
+function updateCartQuantity(productId, quantity) {
+  let total = 0;
+  cart.forEach((item) => {
     total += item.quantity;
   });
 
   cquantity.innerHTML = total;
-  console.log(quantity,cart);
+  console.log(quantity, cart);
 }
 
 function addmsg(added) {
@@ -92,16 +92,16 @@ function addmsg(added) {
 document.querySelectorAll(".add-to-cart")
 .forEach((button)=> {
 
-  button.addEventListener("click",()=> {
+  button.addEventListener("click", () => {
 
-    const productID = button.dataset.productId;
-    const selectquantity = document.querySelector(`.selectquantity-${productID}`);
+    const productId = button.dataset.productId;
+    const selectquantity = document.querySelector(`.selectquantity-${productId}`);
     const quantity = Number(selectquantity.value);
-    const added = document.querySelector(`.added-${productID}`);
+    const added = document.querySelector(`.added-${productId}`);
 
     addmsg(added);
-    addToCart(productID, quantity);
-    updateCartQuantity(productID, quantity);
+    addToCart(productId, quantity);
+    updateCartQuantity(productId, quantity);
 
   });
 });
