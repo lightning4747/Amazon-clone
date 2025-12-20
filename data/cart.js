@@ -4,16 +4,9 @@
 let rawCart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Migrate old cart format to new format
-export let cart = rawCart.map(item => ({
-  productId: item.productId,
-  quantity: item.quantity,
-  deliveryOptionId: item.deliveryOptionId || '1'
-}));
+export let cart;
 
-// Save migrated cart back to localStorage if migration occurred
-if (rawCart.length > 0 && rawCart.some(item => item.ProductId !== undefined)) {
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
+loadFromStorage();
 
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -39,6 +32,19 @@ export function addToCart(productId, quantity) {
   }
 
   saveCart();
+}
+
+export function loadFromStorage() {
+  cart = rawCart.map(item => ({
+  productId: item.productId,
+  quantity: item.quantity,
+  deliveryOptionId: item.deliveryOptionId || '1'
+}));
+
+// Save migrated cart back to localStorage if migration occurred
+if (rawCart.length > 0 && rawCart.some(item => item.ProductId !== undefined)) {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
 }
 
 export function removeProduct(productId) {

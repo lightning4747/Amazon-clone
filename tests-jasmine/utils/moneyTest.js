@@ -1,4 +1,4 @@
-import { formatcurrency } from "../scritps/utils/money.js";
+import { formatcurrency } from "../../scritps/utils/money.js";
 
 describe('test suit: formatcurrency', ()=> {
 
