@@ -15,10 +15,9 @@
 }];
 
 export function getDeliveryOption(deliveryOptionId) {
-    
   const deliveryOption = deliveryoptions.find(
     option => option.id === deliveryOptionId
   );
 
-  return deliveryOption || deliveryOption[0];
+  return deliveryOption || deliveryoptions[0];
 }

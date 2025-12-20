@@ -5,11 +5,11 @@ describe('test suit: addToCart ', ()=>{
         spyOn(Storage.prototype, 'setItem');
 
         spyOn(Storage.prototype, 'getItem').and.callFake(()=> {
-            return JSON.stringify({
+            return JSON.stringify([{
                 productId: '3ebe75dc-64d2-4137-8860-1f5a963e534b',
                 quantity : 1,
                 deliveryOptionId: '1'
-            });
+            }]);
         });
         loadFromStorage();
 

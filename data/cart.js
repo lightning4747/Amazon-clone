@@ -1,12 +1,12 @@
 // data/cart.js
 
 // Load cart from localStorage and migrate old property names if needed
-let rawCart = JSON.parse(localStorage.getItem('cart')) || [];
+function getRawCart() {
+  return JSON.parse(localStorage.getItem('cart')) || [];
+}
 
 // Migrate old cart format to new format
-export let cart;
-
-loadFromStorage();
+export let cart = [];
 
 function saveCart() {
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -35,17 +35,33 @@ export function addToCart(productId, quantity) {
 }
 
 export function loadFromStorage() {
-  cart = rawCart.map(item => ({
-  productId: item.productId,
-  quantity: item.quantity,
-  deliveryOptionId: item.deliveryOptionId || '1'
-}));
+  const rawCart = getRawCart();
+  
+  cart = rawCart.map(item => {
+    // Handle migration from old format
+    if (item.ProductId !== undefined) {
+      return {
+        productId: item.ProductId,
+        quantity: item.quantity,
+        deliveryOptionId: item.deliveryoptions || item.deliveryOptionId || '1'
+      };
+    }
+    // Already in new format
+    return {
+      productId: item.productId,
+      quantity: item.quantity,
+      deliveryOptionId: item.deliveryOptionId || '1'
+    };
+  });
 
-// Save migrated cart back to localStorage if migration occurred
-if (rawCart.length > 0 && rawCart.some(item => item.ProductId !== undefined)) {
-  localStorage.setItem('cart', JSON.stringify(cart));
+  // Save migrated cart back to localStorage if migration occurred
+  if (rawCart.length > 0 && rawCart.some(item => item.ProductId !== undefined)) {
+    saveCart();
+  }
 }
-}
+
+// Load cart on module initialization
+loadFromStorage();
 
 export function removeProduct(productId) {
   const newCart = [];
