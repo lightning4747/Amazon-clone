@@ -13,3 +13,12 @@
     deliverytime: 1,
     priceCents: 999
 }];
+
+export function getDeliveryOption(deliveryOptionId) {
+    
+  const deliveryOption = deliveryoptions.find(
+    option => option.id === deliveryOptionId
+  );
+
+  return deliveryOption || deliveryOption[0];
+}

@@ -2,7 +2,7 @@ import { cart, removeProduct, updateDeliveryOption } from "../../data/cart.js";
 import { products } from "../../data/products.js";
 import { formatcurrency } from "../utils/money.js";
 import  dayjs  from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; //default export
-import {deliveryoptions} from '../../data/deliveryoptions.js';
+import {deliveryoptions, getDeliveryOption} from '../../data/deliveryoptions.js';
 
 
 let cartSummary = '';
@@ -11,25 +11,17 @@ const updatecheckout =  document.querySelector(".js-update-count");
 
 export function orderSummary() {
   cart.forEach((item) => {
-  console.log('Processing cart item:', item);
   const productId = item.productId;
 
   const match = products.find(product => product.id === productId);
   if (!match) {
-    console.log('Product not found for productId:', productId);
     return;
   }
 
   // Ensure deliveryOptionId exists, default to '1' if missing
   const deliveryOptionId = item.deliveryOptionId || '1';
   
-  const deliveryOption = deliveryoptions.find(
-    option => option.id === deliveryOptionId
-  );
-  if (!deliveryOption) {
-    console.log('Delivery option not found for deliveryOptionId:', deliveryOptionId, 'Available options:', deliveryoptions.map(o => o.id));
-    return;
-  }
+  const deliveryOption = getDeliveryOption(deliveryOptionId);
 
   const today = dayjs();
   const deliverydate = today.add(deliveryOption.deliverytime, 'days');
