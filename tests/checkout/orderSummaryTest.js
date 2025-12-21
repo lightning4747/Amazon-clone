@@ -20,7 +20,12 @@ describe('test suit: renderOrderSummary', () => {
             }]);
         });
 
-        cart.loadFromStorage();
+        cart.cartItems = [{
+            productId: productId,
+            quantity: 1,
+            deliveryOptionId: '1'
+        }];
+
         orderSummary();
     });
 

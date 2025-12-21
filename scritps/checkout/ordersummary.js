@@ -85,7 +85,7 @@ export function orderSummary() {
                  ${match.name}
                 </div>
                 <div class="product-price">
-                  $${formatcurrency(match.priceCents)}
+                  ${match.getPrice()}
                 </div>
                 <div class="product-quantity
                 js-product-quantity-${match.id}
