@@ -142,6 +142,11 @@
      be invisible. Use JavaScript to change the
      opacity and make it visible. */
   opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.added-to-cart.is-visible {
+  opacity: 1;
 }
 
 .added-to-cart img {
