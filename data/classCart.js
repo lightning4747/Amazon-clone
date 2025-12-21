@@ -1,14 +1,14 @@
 class Cart {
      cartItems;
-     localStorageKey;
+     #localStorageKey;  //# used to specify the var is private
 
      constructor(key) {
-      this.localStorageKey = key;
+      this.#localStorageKey = key;
       this.loadFromStorage();
      }
 
-     loadFromStorage() {
-      this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [
+     #loadFromStorage() { //also works for the function
+      this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [
         {
           productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
           quantity: 2,
@@ -23,7 +23,7 @@ class Cart {
     }
 
     saveToStorage() {
-      localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+      localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
 
     addToCart(productId, quantity = 1) {
