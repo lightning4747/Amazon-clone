@@ -1,4 +1,4 @@
-import { cart, removeProduct, updateDeliveryOption } from "../../data/cart.js";
+import { cart } from "../../data/cart.js";
 import { products } from "../../data/products.js";
 import { formatcurrency } from "../utils/money.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; //default export
@@ -48,7 +48,7 @@ export function orderSummary() {
     return;
   }
 
-  cart.forEach((item) => {
+  cart.cartItems.forEach((item) => {
     const productId = item.productId;
 
     const match = products.find(product => product.id === productId);
@@ -91,9 +91,13 @@ export function orderSummary() {
                 js-product-quantity-${match.id}
                 ">
                   <span>
-                    Quantity: <span class="quantity-label">${item.quantity}</span>
+                    Quantity: <span class="quantity-label js-quantity-label-${match.id}">${item.quantity}</span>
                   </span>
-                  <span class="update-quantity-link link-primary js-update-link">
+                  <input class="quantity-input js-quantity-input-${match.id}">
+                  <span class="save-quantity-link link-primary js-save-link" data-product-id="${match.id}">
+                    Save
+                  </span>
+                  <span class="update-quantity-link link-primary js-update-link" data-product-id="${match.id}">
                     Update
                   </span>
                   <span class="delete-quantity-link link-primary js-delete-link
@@ -120,14 +124,14 @@ export function orderSummary() {
 
   // Update cart count
   let total = 0;
-  cart.forEach((item) => {
+  cart.cartItems.forEach((item) => {
     total += item.quantity;
   });
   if (updatecheckout) {
     if (!isNaN(total)) {
-      updatecheckout.innerHTML = `item : ${total}`;
+      updatecheckout.innerHTML = `${total} items`;
     } else {
-      updatecheckout.innerHTML = `item : 0`;
+      updatecheckout.innerHTML = `0 items`;
     }
   }
 
@@ -135,7 +139,7 @@ export function orderSummary() {
   document.querySelectorAll(".js-delete-link").forEach((link) => {
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
-      removeProduct(productId);
+      cart.removeFromCart(productId);
 
       const container = document.querySelector(`.js-cart-container-${productId}`);
       if (container) {
@@ -143,6 +147,44 @@ export function orderSummary() {
       }
       renderPaymentSummary();
       orderSummary(); // Re-render to update the display
+    });
+  });
+
+  // Attach event listeners for update links
+  document.querySelectorAll(".js-update-link").forEach((link) => {
+    link.addEventListener('click', () => {
+      const productId = link.dataset.productId;
+      const container = document.querySelector(`.js-cart-container-${productId}`);
+      if (container) {
+        container.classList.add('is-editing-quantity');
+
+        // Focus the input and set current quantity
+        const input = container.querySelector(`.js-quantity-input-${productId}`);
+        const currentQty = container.querySelector(`.js-quantity-label-${productId}`).innerText;
+        input.value = currentQty;
+        input.focus();
+      }
+    });
+  });
+
+  // Attach event listeners for save links
+  document.querySelectorAll(".js-save-link").forEach((link) => {
+    link.addEventListener('click', () => {
+      const productId = link.dataset.productId;
+      const container = document.querySelector(`.js-cart-container-${productId}`);
+      const input = container.querySelector(`.js-quantity-input-${productId}`);
+      const newQuantity = Number(input.value);
+
+      if (newQuantity <= 0 || isNaN(newQuantity)) {
+        alert('Quantity must be at least 1');
+        return;
+      }
+
+      cart.updateQuantity(productId, newQuantity);
+      container.classList.remove('is-editing-quantity');
+
+      renderPaymentSummary();
+      orderSummary();
     });
   });
 
@@ -163,7 +205,7 @@ export function orderSummary() {
         radioInput.checked = true;
       }
 
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
 
       // Find the delivery option to get the new date
       const deliveryOption = deliveryoptions.find(opt => opt.id === deliveryOptionId);

@@ -1,95 +1,98 @@
-// data/cart.js
+export function Cart(localStorageKey) {
+  const cart = {
+    cartItems: undefined,
 
-// Load cart from localStorage and migrate old property names if needed
-function getRawCart() {
-  return JSON.parse(localStorage.getItem('cart')) || [];
-}
+    loadFromStorage() {
+      this.cartItems = JSON.parse(localStorage.getItem(localStorageKey)) || [
+        {
+          productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+          quantity: 2,
+          deliveryOptionId: '1'
+        },
+        {
+          productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+          quantity: 1,
+          deliveryOptionId: '2'
+        }
+      ];
+    },
 
-// Migrate old cart format to new format
-export let cart = [];
+    saveToStorage() {
+      localStorage.setItem(localStorageKey, JSON.stringify(this.cartItems));
+    },
 
-function saveCart() {
-  localStorage.setItem('cart', JSON.stringify(cart));
-}
+    addToCart(productId, quantity = 1) {
+      let matchingItem;
 
-export function addToCart(productId, quantity) {
-  let matchingItem;
+      this.cartItems.forEach((cartItem) => {
+        if (productId === cartItem.productId) {
+          matchingItem = cartItem;
+        }
+      });
 
-  cart.forEach(item => {
-    if (item.productId === productId) {
-      matchingItem = item;
+      if (matchingItem) {
+        matchingItem.quantity += quantity;
+      } else {
+        this.cartItems.push({
+          productId: productId,
+          quantity: quantity,
+          deliveryOptionId: '1'
+        });
+      }
+
+      this.saveToStorage();
+    },
+
+    removeFromCart(productId) {
+      const newCart = [];
+
+      this.cartItems.forEach((cartItem) => {
+        if (cartItem.productId !== productId) {
+          newCart.push(cartItem);
+        }
+      });
+
+      this.cartItems = newCart;
+
+      this.saveToStorage();
+    },
+
+    updateQuantity(productId, newQuantity) {
+      let matchingItem;
+
+      this.cartItems.forEach((cartItem) => {
+        if (productId === cartItem.productId) {
+          matchingItem = cartItem;
+        }
+      });
+
+      if (matchingItem) {
+        matchingItem.quantity = newQuantity;
+        this.saveToStorage();
+      }
+    },
+
+    updateDeliveryOption(productId, deliveryOptionId) {
+      let matchingItem;
+
+      this.cartItems.forEach((cartItem) => {
+        if (productId === cartItem.productId) {
+          matchingItem = cartItem;
+        }
+      });
+
+      if (matchingItem) {
+        matchingItem.deliveryOptionId = deliveryOptionId;
+        this.saveToStorage();
+      }
     }
-  });
+  };
 
-  if (matchingItem) {
-    matchingItem.quantity += quantity;
-  } else {
-    cart.push({
-      productId: productId,
-      quantity: quantity,
-      deliveryOptionId: '1'
-    });
-  }
-
-  saveCart();
+  return cart;
 }
 
-export function loadFromStorage() {
-  const rawCart = getRawCart();
-  
-  cart = rawCart.map(item => {
-    // Handle migration from old format
-    if (item.ProductId !== undefined) {
-      return {
-        productId: item.ProductId,
-        quantity: item.quantity,
-        deliveryOptionId: item.deliveryoptions || item.deliveryOptionId || '1'
-      };
-    }
-    // Already in new format
-    return {
-      productId: item.productId,
-      quantity: item.quantity,
-      deliveryOptionId: item.deliveryOptionId || '1'
-    };
-  });
+export const cart = Cart('cart-oop');
+export const businessCart = Cart('cart-business');
 
-  // Save migrated cart back to localStorage if migration occurred
-  if (rawCart.length > 0 && rawCart.some(item => item.ProductId !== undefined)) {
-    saveCart();
-  }
-}
-
-// Load cart on module initialization
-loadFromStorage();
-
-export function removeProduct(productId) {
-  const newCart = [];
-
-  cart.forEach((item) => {
-    if (item.productId !== productId) {
-      newCart.push(item);
-    }
-  });
-
-  cart = newCart;
-  saveCart();
-}
-
-export function updateDeliveryOption(productId, deliveryOptionId) {
-  let matchingItem;
-
-  cart.forEach(item => {
-    if (item.productId === productId) {
-      matchingItem = item;
-    }
-  });
-
-  if (!matchingItem) {
-    console.error('Product not found in cart:', productId);
-    return;
-  }
-
-  matchingItem.deliveryOptionId = deliveryOptionId;
-  saveCart();
-}
+cart.loadFromStorage();
+businessCart.loadFromStorage();
