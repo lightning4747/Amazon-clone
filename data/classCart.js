@@ -4,7 +4,7 @@ class Cart {
 
      constructor(key) {
       this.#localStorageKey = key;
-      this.loadFromStorage();
+      this.#loadFromStorage();
      }
 
      #loadFromStorage() { //also works for the function
