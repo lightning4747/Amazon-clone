@@ -5,10 +5,15 @@ import {  LoadProductsFetch } from "../data/products.js";
 // import '../data/backend.js';
 
 async function loadpage() {
+    try{
     await LoadProductsFetch();
 
     orderSummary();
     renderPaymentSummary();
+    }
+    catch(error) {
+        console.log("error: ", error);
+    }
     
 }
 loadpage();
