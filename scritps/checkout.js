@@ -4,9 +4,16 @@ import '../data/classCart.js';
 import {  LoadProductsFetch } from "../data/products.js";
 // import '../data/backend.js';
 
-LoadProductsFetch().then(() => {
-  orderSummary();
-  renderPaymentSummary();
-});
+async function loadpage() {
+    await LoadProductsFetch();
+
+    orderSummary();
+    renderPaymentSummary();
+    
+}
+loadpage();
+
+
+  
 
 
