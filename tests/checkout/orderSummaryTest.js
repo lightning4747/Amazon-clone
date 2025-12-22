@@ -1,13 +1,15 @@
 import { orderSummary } from '../../scritps/checkout/ordersummary.js';
 import { cart } from '../../data/cart.js';
-import { loadProducts } from '../../data/products.js';
+import { LoadProductsFetch } from '../../data/products.js';
 
 describe('test suit: renderOrderSummary', () => {
 
     const productId = '3ebe75dc-64d2-4137-8860-1f5a963e534b';
 
     beforeAll((done)=> {
-        loadProducts(done);
+        LoadProductsFetch().then(()=> {
+            done();
+        });
     });
 
     beforeEach(() => {

@@ -100,4 +100,4 @@ export const cart = new Cart('cart-oop');
 export const businessCart = new Cart('cart-business');
 
 
-console.log(cart, businessCart, businessCart instanceof Cart);
+
