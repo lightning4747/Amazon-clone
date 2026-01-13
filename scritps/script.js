@@ -1,6 +1,10 @@
 import { cart } from "../data/cart.js";
 import { products, LoadProductsFetch } from "../data/products.js";
 import { formatcurrency } from "./utils/money.js";
+import { updateAuthHeader } from "../data/auth.js";
+
+// Update auth header on page load
+updateAuthHeader();
 
 LoadProductsFetch().then(() => {
   renderProductsGrid();

@@ -1,6 +1,10 @@
 import { cart } from "../data/cart.js";
 import { products, LoadProductsFetch } from "../data/products.js";
 import { getReviewsForProduct, getAverageRating } from "../data/reviews.js";
+import { updateAuthHeader } from "../data/auth.js";
+
+// Update auth header on page load
+updateAuthHeader();
 
 // Get product ID from URL
 function getProductIdFromUrl() {
