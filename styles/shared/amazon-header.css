@@ -97,10 +97,26 @@
 }
 
 .amazon-header-right-section {
-  width: 180px;
+  width: 280px;
   flex-shrink: 0;
   display: flex;
   justify-content: end;
+  gap: 5px;
+}
+
+.account-link {
+  color: white;
+}
+
+.greeting-text {
+  display: block;
+  font-size: 12px;
+}
+
+.account-text {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .orders-link {
@@ -143,7 +159,7 @@
   position: absolute;
   top: 4px;
   left: 22px;
-  
+
   width: 26px;
   text-align: center;
 }
