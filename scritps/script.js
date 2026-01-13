@@ -114,7 +114,7 @@ function renderProductsGrid() {
 
         addmsg(productId);
         cart.addToCart(productId, quantity);
-        updateCartQuantity(productId, quantity);
+        updateCartQuantity();
 
       });
     });
