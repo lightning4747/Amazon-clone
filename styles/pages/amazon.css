@@ -159,3 +159,19 @@
   padding: 8px;
   border-radius: 50px;
 }
+
+/* Product link styling */
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.product-link:hover .product-name {
+  color: rgb(196, 80, 0);
+}
+
+.product-link:hover .product-image {
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
+}
