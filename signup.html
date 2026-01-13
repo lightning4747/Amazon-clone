@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Account - Amazon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Create your Amazon account">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/shared/general.css">
+    <link rel="stylesheet" href="styles/pages/auth.css">
+</head>
+
+<body>
+    <div class="auth-page">
+        <!-- Logo -->
+        <a href="amazon.html" class="auth-logo-link">
+            <img src="images/amazon-logo.png" alt="Amazon" class="auth-logo">
+        </a>
+
+        <!-- Signup Form -->
+        <div class="auth-container">
+            <h1 class="auth-title">Create Account</h1>
+
+            <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                    <label for="name">Your name</label>
+                    <input type="text" id="name" name="name" required autocomplete="name"
+                        placeholder="First and last name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="new-password"
+                        placeholder="At least 6 characters">
+                    <p class="input-hint">Passwords must be at least 6 characters.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">Re-enter password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required
+                        autocomplete="new-password">
+                </div>
+
+                <div class="error-message js-error-message"></div>
+
+                <button type="submit" class="auth-button button-primary">Create your Amazon account</button>
+            </form>
+
+            <div class="auth-divider">
+                <span>Already have an account?</span>
+            </div>
+
+            <a href="login.html" class="sign-in-link">Sign in →</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="auth-footer">
+            <p>&copy; 2026 Amazon Clone Project</p>
+        </div>
+    </div>
+
+    <script type="module" src="scritps/signup.js"></script>
+</body>
+
+</html>
