@@ -73,15 +73,17 @@ function renderProductsGrid() {
 
   output.innerHTML = items;
 
-  function updateCartQuantity(productId, quantity) {
+  // Update cart quantity display
+  function updateCartQuantity() {
     let total = 0;
     cart.cartItems.forEach((item) => {
       total += item.quantity;
     });
-
     cquantity.innerHTML = total;
-    console.log(quantity, cart.cartItems);
   }
+
+  // Update cart quantity on page load
+  updateCartQuantity();
 
   const addedMessageTimeouts = {};
 
