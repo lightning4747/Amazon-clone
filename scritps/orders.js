@@ -1,4 +1,4 @@
-import { orders } from '../data/orders.js';
+import { orders, removeProductFromOrder } from '../data/orders.js';
 import { products, LoadProductsFetch } from '../data/products.js';
 import { getDeliveryOption } from '../data/deliveryoptions.js';
 import { formatcurrency } from './utils/money.js';
@@ -203,6 +203,13 @@ function renderOrderProducts(order, filterType) {
             ${trackButtonText}
           </button>
         </a>
+        ${filterType === 'current' ? `
+          <button class="cancel-order-button button-secondary js-cancel-order" 
+            data-order-id="${order.id}" 
+            data-product-id="${product.id}">
+            Cancel Order
+          </button>
+        ` : ''}
       </div>
     `;
     });
@@ -234,9 +241,28 @@ function setupBuyAgain() {
     });
 }
 
+// Setup Cancel Order functionality
+function setupCancelOrder() {
+    document.querySelectorAll('.js-cancel-order').forEach(button => {
+        button.addEventListener('click', () => {
+            const orderId = button.dataset.orderId;
+            const productId = button.dataset.productId;
+
+            if (confirm('Are you sure you want to cancel this item?')) {
+                removeProductFromOrder(orderId, productId);
+                // Re-render the orders page
+                renderOrders();
+                setupBuyAgain();
+                setupCancelOrder();
+            }
+        });
+    });
+}
+
 // Initialize page
 LoadProductsFetch().then(() => {
     updateCartQuantity();
     renderOrders();
     setupBuyAgain();
+    setupCancelOrder();
 });
