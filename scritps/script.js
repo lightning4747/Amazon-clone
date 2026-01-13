@@ -2,17 +2,79 @@ import { cart } from "../data/cart.js";
 import { products, LoadProductsFetch } from "../data/products.js";
 import { formatcurrency } from "./utils/money.js";
 
+// Store filtered products for rendering
+let filteredProducts = [];
+
 LoadProductsFetch().then(() => {
-  renderProductsGrid();
-})
+  filteredProducts = products;
+  renderProductsGrid(filteredProducts);
+  setupSearch();
+});
 
-function renderProductsGrid() {
+// Search functionality
+function setupSearch() {
+  const searchBar = document.querySelector('.search-bar');
+  const searchButton = document.querySelector('.search-button');
 
+  // Search on button click
+  searchButton.addEventListener('click', () => {
+    performSearch(searchBar.value);
+  });
+
+  // Search on Enter key press
+  searchBar.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      performSearch(searchBar.value);
+    }
+  });
+
+  // Optional: Live search as user types (with debounce)
+  let searchTimeout;
+  searchBar.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      performSearch(searchBar.value);
+    }, 300); // 300ms debounce
+  });
+}
+
+function performSearch(query) {
+  const searchTerm = query.toLowerCase().trim();
+
+  if (searchTerm === '') {
+    // If search is empty, show all products
+    filteredProducts = products;
+  } else {
+    // Filter products by name and keywords
+    filteredProducts = products.filter(product => {
+      const nameMatch = product.name.toLowerCase().includes(searchTerm);
+      const keywordMatch = product.keywords &&
+        product.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm));
+      return nameMatch || keywordMatch;
+    });
+  }
+
+  renderProductsGrid(filteredProducts);
+}
+
+function renderProductsGrid(productsToRender) {
   const output = document.querySelector(".products-grid");
   const cquantity = document.querySelector(".js-quantity");
 
-  let items = ""
-  products.forEach(product => {
+  // Show message if no products found
+  if (productsToRender.length === 0) {
+    output.innerHTML = `
+      <div class="no-results">
+        <p>No products found matching your search.</p>
+        <p>Try different keywords or <a href="amazon.html">view all products</a>.</p>
+      </div>
+    `;
+    updateCartQuantity();
+    return;
+  }
+
+  let items = "";
+  productsToRender.forEach(product => {
     items += `
     <div class="product-container">
           <a href="product.html?productId=${product.id}" class="product-link">
@@ -68,7 +130,7 @@ function renderProductsGrid() {
             Add to Cart
           </button>
         </div>
-    `
+    `;
   });
 
   output.innerHTML = items;
@@ -118,4 +180,14 @@ function renderProductsGrid() {
 
       });
     });
+}
+
+// Make updateCartQuantity accessible globally for the no-results case
+function updateCartQuantity() {
+  const cquantity = document.querySelector(".js-quantity");
+  let total = 0;
+  cart.cartItems.forEach((item) => {
+    total += item.quantity;
+  });
+  cquantity.innerHTML = total;
 }
