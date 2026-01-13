@@ -91,6 +91,11 @@ export class Cart {
       this.saveToStorage();
     }
   }
+
+  clearCart() {
+    this.cartItems = [];
+    this.saveToStorage();
+  }
 };
 
 
