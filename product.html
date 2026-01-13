@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Product Details - Amazon</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,130 +16,135 @@
     <link rel="stylesheet" href="styles/shared/general.css">
     <link rel="stylesheet" href="styles/shared/amazon-header.css">
     <link rel="stylesheet" href="styles/pages/product.css">
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- Header -->
     <div class="amazon-header">
-      <div class="amazon-header-left-section">
-        <a href="amazon.html" class="header-link">
-          <img class="amazon-logo"
-            src="images/amazon-logo-white.png">
-          <img class="amazon-mobile-logo"
-            src="images/amazon-mobile-logo-white.png">
-        </a>
-      </div>
+        <div class="amazon-header-left-section">
+            <a href="amazon.html" class="header-link">
+                <img class="amazon-logo" src="images/amazon-logo-white.png">
+                <img class="amazon-mobile-logo" src="images/amazon-mobile-logo-white.png">
+            </a>
+        </div>
 
-      <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search">
+        <div class="amazon-header-middle-section">
+            <input class="search-bar" type="text" placeholder="Search">
 
-        <button class="search-button">
-          <img class="search-icon" src="images/icons/search-icon.png">
-        </button>
-      </div>
+            <button class="search-button">
+                <img class="search-icon" src="images/icons/search-icon.png">
+            </button>
+        </div>
 
-      <div class="amazon-header-right-section">
-        <a class="orders-link header-link" href="orders.html">
-          <span class="returns-text">Returns</span>
-          <span class="orders-text">& Orders</span>
-        </a>
+        <div class="amazon-header-right-section">
+            <a class="account-link header-link js-auth-link" href="login.html">
+                <span class="greeting-text">Hello, Sign in</span>
+                <span class="account-text">Account</span>
+            </a>
 
-        <a class="cart-link header-link" href="checkout.html">
-          <img class="cart-icon" src="images/icons/cart-icon.png">
-          <div class="cart-quantity js-quantity">0</div>
-          <div class="cart-text">Cart</div>
-        </a>
-      </div>
+            <a class="orders-link header-link" href="orders.html">
+                <span class="returns-text">Returns</span>
+                <span class="orders-text">& Orders</span>
+            </a>
+
+            <a class="cart-link header-link" href="checkout.html">
+                <img class="cart-icon" src="images/icons/cart-icon.png">
+                <div class="cart-quantity js-quantity">0</div>
+                <div class="cart-text">Cart</div>
+            </a>
+        </div>
     </div>
 
     <!-- Main Content -->
     <main class="product-page-main">
-      <!-- Breadcrumb Navigation -->
-      <nav class="breadcrumb">
-        <a href="amazon.html" class="breadcrumb-link">Home</a>
-        <span class="breadcrumb-separator">›</span>
-        <span class="breadcrumb-current js-product-category">Product</span>
-      </nav>
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb">
+            <a href="amazon.html" class="breadcrumb-link">Home</a>
+            <span class="breadcrumb-separator">›</span>
+            <span class="breadcrumb-current js-product-category">Product</span>
+        </nav>
 
-      <!-- Product Details Section -->
-      <section class="product-details-section">
-        <div class="product-image-section">
-          <div class="product-main-image-container">
-            <img class="product-main-image js-product-image" src="" alt="Product Image">
-          </div>
-        </div>
-
-        <div class="product-info-section">
-          <h1 class="product-title js-product-name">Loading...</h1>
-          
-          <div class="product-rating-section">
-            <img class="product-stars js-product-stars" src="">
-            <span class="product-rating-text js-product-rating-text"></span>
-            <span class="product-reviews-count js-reviews-count"></span>
-          </div>
-
-          <div class="product-price-section">
-            <span class="price-label">Price:</span>
-            <span class="product-price js-product-price"></span>
-          </div>
-
-          <div class="product-description">
-            <h3>About this item</h3>
-            <p class="js-product-description">High-quality product with excellent craftsmanship. Designed for durability and style. Perfect for everyday use.</p>
-          </div>
-
-          <div class="add-to-cart-section">
-            <div class="quantity-selector">
-              <label for="quantity">Quantity:</label>
-              <select id="quantity" class="js-quantity-selector">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
+        <!-- Product Details Section -->
+        <section class="product-details-section">
+            <div class="product-image-section">
+                <div class="product-main-image-container">
+                    <img class="product-main-image js-product-image" src="" alt="Product Image">
+                </div>
             </div>
 
-            <button class="add-to-cart-btn button-primary js-add-to-cart">
-              Add to Cart
-            </button>
+            <div class="product-info-section">
+                <h1 class="product-title js-product-name">Loading...</h1>
 
-            <div class="added-message js-added-message">
-              <img src="images/icons/checkmark.png" alt="Checkmark">
-              Added to Cart
+                <div class="product-rating-section">
+                    <img class="product-stars js-product-stars" src="">
+                    <span class="product-rating-text js-product-rating-text"></span>
+                    <span class="product-reviews-count js-reviews-count"></span>
+                </div>
+
+                <div class="product-price-section">
+                    <span class="price-label">Price:</span>
+                    <span class="product-price js-product-price"></span>
+                </div>
+
+                <div class="product-description">
+                    <h3>About this item</h3>
+                    <p class="js-product-description">High-quality product with excellent craftsmanship. Designed for
+                        durability and style. Perfect for everyday use.</p>
+                </div>
+
+                <div class="add-to-cart-section">
+                    <div class="quantity-selector">
+                        <label for="quantity">Quantity:</label>
+                        <select id="quantity" class="js-quantity-selector">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+
+                    <button class="add-to-cart-btn button-primary js-add-to-cart">
+                        Add to Cart
+                    </button>
+
+                    <div class="added-message js-added-message">
+                        <img src="images/icons/checkmark.png" alt="Checkmark">
+                        Added to Cart
+                    </div>
+                </div>
+
+                <div class="extra-info js-extra-info"></div>
             </div>
-          </div>
+        </section>
 
-          <div class="extra-info js-extra-info"></div>
-        </div>
-      </section>
+        <!-- Reviews Section -->
+        <section class="reviews-section">
+            <h2 class="section-title">Customer Reviews</h2>
+            <div class="reviews-summary">
+                <div class="average-rating">
+                    <span class="average-rating-number js-average-rating">4.5</span>
+                    <span class="average-rating-text">out of 5</span>
+                </div>
+                <div class="total-reviews js-total-reviews"></div>
+            </div>
+            <div class="reviews-list js-reviews-list">
+                <!-- Reviews will be loaded dynamically -->
+            </div>
+        </section>
 
-      <!-- Reviews Section -->
-      <section class="reviews-section">
-        <h2 class="section-title">Customer Reviews</h2>
-        <div class="reviews-summary">
-          <div class="average-rating">
-            <span class="average-rating-number js-average-rating">4.5</span>
-            <span class="average-rating-text">out of 5</span>
-          </div>
-          <div class="total-reviews js-total-reviews"></div>
-        </div>
-        <div class="reviews-list js-reviews-list">
-          <!-- Reviews will be loaded dynamically -->
-        </div>
-      </section>
-
-      <!-- Other Products Section -->
-      <section class="other-products-section">
-        <h2 class="section-title">Customers Also Viewed</h2>
-        <div class="other-products-grid js-other-products">
-          <!-- Other products will be loaded dynamically -->
-        </div>
-      </section>
+        <!-- Other Products Section -->
+        <section class="other-products-section">
+            <h2 class="section-title">Customers Also Viewed</h2>
+            <div class="other-products-grid js-other-products">
+                <!-- Other products will be loaded dynamically -->
+            </div>
+        </section>
     </main>
 
     <!-- Footer spacer -->
@@ -146,5 +152,6 @@
 
     <!-- JavaScript entry point -->
     <script type="module" src="scritps/product.js"></script>
-  </body>
+</body>
+
 </html>
