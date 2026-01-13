@@ -70,7 +70,7 @@ function renderProductsGrid(productsToRender) {
     output.innerHTML = `
       <div class="no-results">
         <p>No products found matching your search.</p>
-        <p>Try different keywords or <a href="amazon.html">view all products</a>.</p>
+        <p>Try different keywords or <a href="index.html">view all products</a>.</p>
       </div>
     `;
     updateCartQuantity();

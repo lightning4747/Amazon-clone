@@ -52,7 +52,7 @@ function renderOrders() {
         ordersGrid.innerHTML = `
       <div class="empty-orders">
         <p>You have no orders yet.</p>
-        <a href="amazon.html" class="link-primary">Continue shopping</a>
+        <a href="index.html" class="link-primary">Continue shopping</a>
       </div>
     `;
         return;

@@ -150,7 +150,7 @@ LoadProductsFetch().then(() => {
     const productId = getProductIdFromUrl();
 
     if (!productId) {
-        window.location.href = 'amazon.html';
+        window.location.href = 'index.html';
         return;
     }
 

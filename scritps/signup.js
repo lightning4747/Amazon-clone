@@ -2,7 +2,7 @@ import { signup, isLoggedIn } from '../data/auth.js';
 
 // Redirect if already logged in
 if (isLoggedIn()) {
-    window.location.href = 'amazon.html';
+    window.location.href = 'index.html';
 }
 
 const signupForm = document.getElementById('signup-form');
@@ -27,7 +27,7 @@ signupForm.addEventListener('submit', (e) => {
 
     if (result.success) {
         // Redirect to home page
-        window.location.href = 'amazon.html';
+        window.location.href = 'index.html';
     } else {
         // Show error message
         errorMessage.textContent = result.message;
