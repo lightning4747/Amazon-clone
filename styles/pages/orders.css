@@ -218,3 +218,45 @@
     padding: 12px;
   }
 }
+
+/* Orders Sections */
+.orders-section {
+  margin-bottom: 40px;
+}
+
+.orders-section-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: rgb(15, 17, 17);
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgb(221, 221, 221);
+}
+
+/* Delivered status styling */
+.product-delivery-date.delivered {
+  color: rgb(6, 125, 98);
+  font-weight: 500;
+}
+
+/* Loading state */
+.orders-loading {
+  text-align: center;
+  padding: 50px 20px;
+  color: rgb(100, 100, 100);
+  font-size: 16px;
+}
+
+/* Empty orders state */
+.empty-orders {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: rgb(250, 250, 250);
+  border-radius: 8px;
+}
+
+.empty-orders p {
+  color: rgb(100, 100, 100);
+  font-size: 16px;
+  margin-bottom: 15px;
+}
