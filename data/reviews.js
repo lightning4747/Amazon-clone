@@ -80,4 +80,15 @@ const defaultReviews = [
     }
 ];
 
+export function getReviewsForProduct(productId) {
+    const productReviews = reviews.find(r => r.productId === productId);
+    return productReviews ? productReviews.reviews : defaultReviews;
+}
 
+export function getAverageRating(productId) {
+    const productReviews = getReviewsForProduct(productId);
+    if (productReviews.length === 0) return 0;
+
+    const sum = productReviews.reduce((acc, review) => acc + review.rating, 0);
+    return (sum / productReviews.length).toFixed(1);
+}
